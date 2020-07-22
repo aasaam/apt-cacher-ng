@@ -1,0 +1,10 @@
+{
+    "Debug": true,
+    "Retries": 0,
+    "ServeNodes": [
+        "dns://:53?mode=udp&dns=8.8.8.8,1.1.1.1,4.2.2.4,208.67.222.222:53/tcp,1.1.1.1:853/tls,https://1.0.0.1/dns-query",
+        "tls://:2222?cert=/opt/cert/server-fullchain.pem&key=/opt/cert/server-key.pem&ca=/opt/cert/root-ca.pem",
+        ":2082",
+        ":8080"
+    ]
+}
