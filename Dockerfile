@@ -24,6 +24,7 @@ RUN export DEBIAN_FRONTEND=noninteractive ; \
   && apt-get clean \
   && rm -rf /root/.cache && rm -r /var/lib/apt/lists/* && rm -rf /tmp && mkdir /tmp && chmod 777 /tmp && truncate -s 0 /var/log/*.log
 
+ADD config/interval.sh /interval.sh
 ADD config/supervisor.ini /supervisor.ini
 ADD config/config.json /etc/gost.json
 ADD config/acng.conf /etc/apt-cacher-ng/acng.conf
