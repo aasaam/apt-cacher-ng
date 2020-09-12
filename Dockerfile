@@ -9,7 +9,7 @@ LABEL org.label-schema.name="apt-cacher-ng" \
 RUN export DEBIAN_FRONTEND=noninteractive ; \
   apt update \
   && apt upgrade -y \
-  && apt install apt-cacher-ng python3 python3-distutils curl ca-certificates jq --no-install-recommends -y \
+  && apt install cron apt-cacher-ng python3 python3-distutils curl ca-certificates jq --no-install-recommends -y \
   && cd /tmp \
   && export GOST_URL=$(curl -s https://api.github.com/repos/ginuerzh/gost/releases/latest | jq -r '.assets[].browser_download_url | select(contains("linux-amd64"))') \
   && curl -sL $GOST_URL -o gost.gz \
