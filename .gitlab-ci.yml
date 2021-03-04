@@ -1,0 +1,34 @@
+# Copyright (c) 2021 aasaam software development group
+image: docker:stable
+
+services:
+  - docker:dind
+
+stages:
+  - build
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+before_script:
+  - docker login --username=$DOCKER_HUB_USER --password=$DOCKER_HUB_PASS
+  - docker login --username=$QUAY_HUB_USER --password=$QUAY_HUB_PASS quay.io
+  - docker login --username=$GITHUB_HUB_USER --password=$GITHUB_HUB_PASS docker.pkg.github.com
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    # build
+    - docker build -f Dockerfile -t aasaam/apt-cacher-ng .
+    # push
+    - |
+      docker push aasaam/apt-cacher-ng
+      docker image tag aasaam/apt-cacher-ng quay.io/aasaam/apt-cacher-ng
+      docker push quay.io/aasaam/apt-cacher-ng
+      docker image tag aasaam/apt-cacher-ng docker.pkg.github.com/aasaam/apt-cacher-ng/web-server
+      docker push docker.pkg.github.com/aasaam/apt-cacher-ng/web-server
+      docker image tag aasaam/apt-cacher-ng $CI_REGISTRY/aasaam/apt-cacher-ng:latest
+      docker push $CI_REGISTRY/aasaam/apt-cacher-ng:latest
+    # remove image
+    - docker rmi aasaam/apt-cacher-ng

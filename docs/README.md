@@ -10,9 +10,6 @@
     <a href="https://hub.docker.com/r/aasaam/apt-cacher-ng" target="_blank"><img src="https://img.shields.io/docker/image-size/aasaam/apt-cacher-ng?label=docker%20image" alt="docker" /></a>
     <a href="https://quay.io/repository/aasaam/apt-cacher-ng" target="_blank"><img src="https://img.shields.io/badge/docker%20image-quay.io-blue" alt="quay.io" /></a>
     <a href="https://aasaam.github.io/apt-cacher-ng/" target="_blank"><img src="https://github.com/aasaam/apt-cacher-ng/actions/workflows/docs.yml/badge.svg" alt="docs" /></a>
-    <a href="https://github.com/aasaam/apt-cacher-ng/blob/master/LICENSE">
-      <img alt="License" src="https://img.shields.io/github/license/aasaam/apt-cacher-ng">
-    </a>
   </p>
 </div>
 

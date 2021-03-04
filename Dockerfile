@@ -22,7 +22,8 @@ RUN export DEBIAN_FRONTEND=noninteractive ; \
   && apt-get purge curl jq python3-distutils -y \
   && apt-get autoremove -y \
   && apt-get clean \
-  && rm -rf /root/.cache && rm -r /var/lib/apt/lists/* && rm -rf /tmp && mkdir /tmp && chmod 777 /tmp && truncate -s 0 /var/log/*.log
+  && rm -rf /root/.cache && rm -r /var/lib/apt/lists/* && rm -rf /tmp && mkdir /tmp && chmod 777 /tmp && truncate -s 0 /var/log/*.log \
+  && du /root --max-depth=1 -h
 
 ADD config/interval.sh /interval.sh
 ADD config/supervisor.ini /supervisor.ini
