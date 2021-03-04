@@ -26,8 +26,8 @@ build:
       docker push aasaam/apt-cacher-ng
       docker image tag aasaam/apt-cacher-ng quay.io/aasaam/apt-cacher-ng
       docker push quay.io/aasaam/apt-cacher-ng
-      docker image tag aasaam/apt-cacher-ng docker.pkg.github.com/aasaam/apt-cacher-ng/web-server
-      docker push docker.pkg.github.com/aasaam/apt-cacher-ng/web-server
+      docker image tag aasaam/apt-cacher-ng docker.pkg.github.com/aasaam/apt-cacher-ng/apt-cacher-ng
+      docker push docker.pkg.github.com/aasaam/apt-cacher-ng/apt-cacher-ng
       docker image tag aasaam/apt-cacher-ng $CI_REGISTRY/aasaam/apt-cacher-ng:latest
       docker push $CI_REGISTRY/aasaam/apt-cacher-ng:latest
     # remove image
