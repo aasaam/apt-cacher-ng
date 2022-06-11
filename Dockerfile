@@ -21,6 +21,6 @@ ADD apt-cacher-ng /etc/apt-cacher-ng
 ADD s6 /etc/s6
 ADD opt /opt/acng
 ADD entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
+RUN ls -la / && ls -la /opt/ && ls -la /opt/acng && chmod 755 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["s6-svscan","/etc/s6"]

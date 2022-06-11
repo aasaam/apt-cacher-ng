@@ -5,6 +5,8 @@ docker pull ghcr.io/aasaam/apt-cacher-ng:latest
 # or docker pull aasaam/apt-cacher-ng
 ```
 
+Set **environment variables** and `docker-compose up -d`
+
 ```yml
 # Copyright (c) 2022 aasaam software development group
 version: '3'
@@ -14,7 +16,6 @@ services:
     container_name: apt-cacher-ng
     image: ghcr.io/aasaam/apt-cacher-ng:latest
     environment:
-      # ${ASM_APT_NG_CACHER_USERNAME}:${ASM_APT_NG_CACHER_PASSWORD}
       ASM_APT_NG_CACHER_USERNAME: ${ASM_APT_NG_CACHER_USERNAME:-YourUserName}
       ASM_APT_NG_CACHER_PASSWORD: ${ASM_APT_NG_CACHER_PASSWORD:-YourPassw0rd}
       # configure your `PassThroughPattern`

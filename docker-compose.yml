@@ -6,9 +6,9 @@ services:
     container_name: apt-cacher-ng
     image: ghcr.io/aasaam/apt-cacher-ng:latest
     environment:
-      # ${ASM_APT_NG_CACHER_USERNAME}:${ASM_APT_NG_CACHER_PASSWORD}
       ASM_APT_NG_CACHER_USERNAME: ${ASM_APT_NG_CACHER_USERNAME:-YourUserName}
       ASM_APT_NG_CACHER_PASSWORD: ${ASM_APT_NG_CACHER_PASSWORD:-YourPassw0rd}
+
       # configure your `PassThroughPattern`
       ASM_APT_NG_CACHER_PASS_THROUGH_PATTERN: ${ASM_APT_NG_CACHER_PASS_THROUGH_PATTERN:-^(.*):443}
 
