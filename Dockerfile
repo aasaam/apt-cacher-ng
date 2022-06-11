@@ -18,7 +18,7 @@ RUN export DEBIAN_FRONTEND=noninteractive ; \
   && mv gost /usr/bin/gost \
   && curl -sL https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
   && python3 get-pip.py \
-  && pip install supervisor \
+  && pip install supervisor --no-cache-dir \
   && apt-get purge curl jq python3-distutils -y \
   && apt-get autoremove -y \
   && apt-get clean \
