@@ -6,20 +6,30 @@ docker pull aasaam/apt-cacher-ng
 ```
 
 ```yml
+# Copyright (c) 2022 aasaam software development group
 version: '3'
 
 services:
   apt-cacher-ng:
     container_name: apt-cacher-ng
-    image: aasaam/apt-cacher-ng
+    image: ghcr.io/aasaam/apt-cacher-ng:latest
     ports:
       - 8443:8443 # apt-cacher-ng
+      # - 2222:2222 # tls network
+      # - 2082:2082 # auto socks, http, https port 2082
     volumes:
       - cache-storage:/var/lib/apt-cacher-ng
+      # - ./addon/gost.json:/etc/gost.json:ro
+      # - ./addon/supervisor.ini:/supervisor.ini:ro
       # - ./addon/security.conf:/etc/apt-cacher-ng/security.conf:ro
+      # - ./addon/cert:/opt/cert:ro
     dns:
       - 127.0.0.1
     restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
 
 volumes:
   cache-storage:
