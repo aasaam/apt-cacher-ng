@@ -7,6 +7,7 @@
   </p>
   <p>
     <a href="https://github.com/aasaam/apt-cacher-ng/actions/workflows/build.yml" target="_blank"><img src="https://github.com/aasaam/apt-cacher-ng/actions/workflows/build.yml/badge.svg" alt="build" /></a>
+    <a href="https://hub.docker.com/r/aasaam/apt-cacher-ng" target="_blank"><img src="https://img.shields.io/docker/image-size/aasaam/apt-cacher-ng?label=docker%20image" alt="docker" /></a>
     <a href="https://github.com/aasaam/apt-cacher-ng/blob/master/LICENSE">
       <img alt="License" src="https://img.shields.io/github/license/aasaam/apt-cacher-ng">
     </a>
