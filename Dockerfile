@@ -1,36 +1,26 @@
-FROM ubuntu:focal
-
-LABEL org.label-schema.name="apt-cacher-ng" \
-      org.label-schema.description="apt-cacher-ng" \
-      org.label-schema.url=https://github.com/aasaam/apt-cacher-ng \
-      org.label-schema.vendor="aasaam" \
-      maintainer="Muhammad Hussein Fattahizadeh <m@mhf.ir>"
+FROM debian:bullseye-slim
 
 RUN export DEBIAN_FRONTEND=noninteractive ; \
   apt update \
   && apt upgrade -y \
-  && apt install cron apt-cacher-ng python3 python3-distutils curl ca-certificates jq --no-install-recommends -y \
-  && cd /tmp \
-  && export GOST_URL=$(curl -s https://api.github.com/repos/ginuerzh/gost/releases/latest | jq -r '.assets[].browser_download_url | select(contains("linux-amd64"))') \
-  && curl -sL $GOST_URL -o gost.gz \
-  && gunzip gost.gz \
-  && chmod +x gost \
-  && mv gost /usr/bin/gost \
-  && curl -sL https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-  && python3 get-pip.py \
-  && pip install supervisor --no-cache-dir \
-  && apt-get purge curl jq python3-distutils -y \
+  && apt install -y --no-install-recommends apt-cacher-ng ca-certificates cron curl gettext-base logrotate rsyslog s6 \
   && apt-get autoremove -y \
   && apt-get clean \
-  && rm -rf /root/.cache && rm -r /var/lib/apt/lists/* && rm -rf /tmp && mkdir /tmp && chmod 777 /tmp && truncate -s 0 /var/log/*.log \
-  && du /root --max-depth=1 -h
+  && sed -i "s#size 10M#size 128M#g" /etc/logrotate.d/apt-cacher-ng \
+  && sed -i '/imklog/s/^/#/' /etc/rsyslog.conf \
+  && echo 'cache' > /usr/share/doc/apt-cacher-ng/cache.txt \
+  && rm /etc/apt-cacher-ng -rf \
+  && rm -r /var/lib/apt/lists/* && rm -rf /tmp && mkdir /tmp && chmod 777 /tmp && truncate -s 0 /var/log/*.log
 
-ADD config/interval.sh /interval.sh
-ADD config/supervisor.ini /supervisor.ini
-ADD config/config.json /etc/gost.json
-ADD config/acng.conf /etc/apt-cacher-ng/acng.conf
-ADD config/security.conf /etc/apt-cacher-ng/security.conf
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD curl -sL -o /dev/null  http://127.0.0.1:3142/acng-report.html || exit 1
 
-VOLUME ["/var/lib/apt-cacher-ng"]
+EXPOSE 3142/tcp
 
-CMD ["/usr/local/bin/supervisord", "-c", "/supervisor.ini"]
+ADD apt-cacher-ng /etc/apt-cacher-ng
+ADD s6 /etc/s6
+ADD opt /opt/acng
+ADD entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["s6-svscan","/etc/s6"]
