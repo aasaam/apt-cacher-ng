@@ -1,5 +1,13 @@
 #!/bin/bash
+
 set -e
+
+if [ -z "$ASM_APT_NG_CACHER_PASSWORD" ]; then
+  ASM_APT_NG_CACHER_PASSWORD=$(head /dev/random | tr -dc A-Za-z0-9  | head -c 32 ; echo '')
+  echo "Your password for administrator is $ASM_APT_NG_CACHER_PASSWORD"
+else
+  echo "Your password for administrator is set manually using env varaibles"
+fi
 
 # generate templates
 envsubst < /opt/acng/acng.conf > /etc/apt-cacher-ng/acng.conf

@@ -1,5 +1,8 @@
 FROM debian:bullseye-slim
 
+ENV ASM_APT_NG_CACHER_BIND_ADDRESS=0.0.0.0
+ENV ASM_APT_NG_CACHER_USERNAME="acng-admin"
+
 RUN export DEBIAN_FRONTEND=noninteractive ; \
   apt update \
   && apt upgrade -y \
@@ -21,6 +24,9 @@ ADD apt-cacher-ng /etc/apt-cacher-ng
 ADD s6 /etc/s6
 ADD opt /opt/acng
 ADD entrypoint.sh /entrypoint.sh
+
 RUN ls -la / && ls -la /opt/ && ls -la /opt/acng && chmod 755 /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
+
 CMD ["s6-svscan","/etc/s6"]

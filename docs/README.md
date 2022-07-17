@@ -16,7 +16,7 @@
 
 [Apt-Cacher NG](http://www.unix-ag.uni-kl.de/~bloch/acng/) is for cache apt packages.
 
-This container is useful for speedup development process and saving bandwidth.
+This container is useful for speedup deployment/development process and saving bandwidth.
 
 <div>
   <p align="center">
