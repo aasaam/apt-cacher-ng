@@ -5,8 +5,8 @@ services:
   apt-cacher-ng:
     container_name: apt-cacher-ng
     image: ghcr.io/aasaam/apt-cacher-ng:latest
-    env_file:
-      - ./env
+    # env_file:
+    #   - ./env
     environment:
       # admin
       ASM_APT_NG_CACHER_USERNAME: ${ASM_APT_NG_CACHER_USERNAME:-acng-admin}
